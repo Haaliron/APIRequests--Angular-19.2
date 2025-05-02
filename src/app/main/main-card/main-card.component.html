@@ -1,0 +1,14 @@
+@if (commentsResource.isLoading()) {
+  <p>Yükleniyor...</p>
+} @else {
+  @if (commentsResource.hasValue()) {
+    @for (comment of commentsResource.value(); track $index) {
+      <hgroup>
+        <h3>{{ comment.name }}</h3>
+        <p>{{ comment.body }}</p>
+      </hgroup>
+    }
+  } @else {
+    <p>Lütfen bir post seçin.</p>
+  }
+}

@@ -1,0 +1,13 @@
+<h1>{{ dateTime() | date : "HH:mm:ss"  }}</h1>
+
+@if (postsResource.isLoading()) {
+  <p>Yükleniyor...</p>
+} @else {
+  <app-main-card [(selectedPost)]="selectedPost"></app-main-card>
+  @for (card of postsResource.value(); track $index) {
+    <app-cards
+      [post]="card"
+      [(selectedPost)]="selectedPost"
+    ></app-cards>
+  }
+}

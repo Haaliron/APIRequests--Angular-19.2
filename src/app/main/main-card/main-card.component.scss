@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  background-color: palevioletred;
+  place-content: center;
+  grid-column: span 3;
+
+  hgroup {
+    display: flex;
+    flex-direction: column;
+  }
+}
