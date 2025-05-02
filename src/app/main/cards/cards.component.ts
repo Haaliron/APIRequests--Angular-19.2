@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { Component, computed, input, model } from '@angular/core';
 import { Post } from '../../models/post';
 
 @Component({
@@ -7,15 +7,24 @@ import { Post } from '../../models/post';
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.scss',
   host: {
-    "(click)": "onClick()",
-    "[class.selected]": "",
-  }
+    '(click)': 'onClick()',
+    '[class.selected]': 'isSelected()',
+  },
 })
 export class CardsComponent {
-  post         = input.required<Post>();
-  selectedPost = model<Post>()
+  post = input.required<Post>();
+
+  selectedPost = model<Post>();
+
+  isSelected = computed(() => Object.is(this.post(), this.selectedPost()));
 
   onClick() {
-    this.selectedPost.set(this.post())
+    if (this.isSelected()) {
+      this.selectedPost.set(undefined)
+    }
+    else {
+      this.selectedPost.set(this.post());
+
+    }
   }
 }

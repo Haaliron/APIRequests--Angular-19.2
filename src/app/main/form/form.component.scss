@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  place-content: center;
+  grid-column:  span 3;
+  background-color: greenyellow;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  form {
+    display: flex;
+    flex-direction:row;
+    gap: 1rem;
+
+    input {
+      border-radius: 1rem;
+      padding: 1rem;
+      font-size: x-large;
+    }
+
+    button {
+      border-radius: 1rem;
+      padding: 1rem;
+      font-size: x-large;
+    }
+  }
+}

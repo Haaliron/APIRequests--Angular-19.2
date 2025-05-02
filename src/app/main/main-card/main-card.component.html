@@ -1,12 +1,16 @@
-@if (commentsResource.isLoading()) {
+@let comments = this.commentResource.value();
+
+@if (commentResource.isLoading()) {
   <p>Yükleniyor...</p>
 } @else {
-  @if (commentsResource.hasValue()) {
-    @for (comment of commentsResource.value(); track $index) {
+  @if (commentResource.hasValue()) {
+    @for (comment of comments; track comment.id) {
       <hgroup>
         <h3>{{ comment.name }}</h3>
         <p>{{ comment.body }}</p>
       </hgroup>
+    }@empty {
+      <p>Boş</p>
     }
   } @else {
     <p>Lütfen bir post seçin.</p>

@@ -7,5 +7,7 @@ interface Post {
 
 type Posts = Post[];
 
-export type { Post, Posts };
+type CreatePost = Pick<Post, "body" | "title" | "userId">
+
+export type { CreatePost, Post, Posts };
 

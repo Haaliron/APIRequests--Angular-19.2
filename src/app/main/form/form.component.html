@@ -1,0 +1,6 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="title" placeholder="Başlık..." />
+  <input type="text" formControlName="body" placeholder="İçerik..." />
+
+  <button type="submit">Kaydet</button>
+</form>

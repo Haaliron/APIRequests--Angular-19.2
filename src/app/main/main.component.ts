@@ -4,33 +4,38 @@ import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { interval, map } from 'rxjs';
 import { Post } from '../models/post';
 import { CardService } from '../services/card.service';
-import { CardsComponent } from "./cards/cards.component";
-import { MainCardComponent } from "./main-card/main-card.component";
+import { CardsComponent } from './cards/cards.component';
+import { FormComponent } from "./form/form.component";
+import { MainCardComponent } from './main-card/main-card.component';
 
 @Component({
   selector: 'app-main',
-  imports: [CardsComponent, DatePipe, MainCardComponent],
+  imports: [MainCardComponent, CardsComponent, DatePipe, FormComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
-  providers: [
-    CardService
-  ]
+  providers: [CardService],
 })
 export class MainComponent {
   private _cardService = inject(CardService);
 
-  selectedPost = signal<Post | undefined>(undefined)
+  selectedPost = signal<Post | undefined>(undefined);
 
   postsResource = rxResource({
-    loader: () =>
-      this._cardService.getPosts()
-  })
+    loader: () => this._cardService.getPosts(),
+  });
 
   dateTime = toSignal(
     interval(1000)
-    .pipe(
-      map(() => Date.now())
-    ),
-    { initialValue: Date.now() }
-  )
+      .pipe(
+        map(() => Date.now())
+      ),
+      {
+        initialValue : Date.now()
+      }
+
+  );
+
+  onCreated(post: Post){
+    this.postsResource.update( (posts) => [post,...posts!]);
+  }
 }

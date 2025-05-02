@@ -1,4 +1,4 @@
-import { Component, inject, model } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { Post } from '../../models/post';
@@ -11,15 +11,13 @@ import { CardService } from '../../services/card.service';
   styleUrl: './main-card.component.scss'
 })
 export class MainCardComponent {
-  private _cardsService = inject(CardService)
+  private _cardService = inject(CardService)
 
-  selectedPost = model<Post>()
+  selectedPost = input.required<Post | undefined>();
 
-  commentsResource = rxResource({
+  commentResource = rxResource({
     request: this.selectedPost,
     loader: ({ request }) =>
-      request
-        ? this._cardsService.getComments(request.id)
-        : of(undefined)
-  })
+      request ? this._cardService.getComments(request.id) : of(undefined),
+  });
 }
